@@ -1,77 +1,76 @@
 # Code-AR 📱
 
-Media edukasi interaktif berbasis WebAR (Web-based Augmented Reality) untuk belajar dasar-dasar pengembangan web menggunakan satu flashcard. Scan flashcard → pelajari HTML, CSS, dan JavaScript dalam 9 scene AR berurutan langsung dari browser smartphone kamu.
+Media edukasi interaktif berbasis WebAR (*Web-based Augmented Reality*) untuk belajar dasar-dasar pengembangan web menggunakan satu *flashcard*. Scan *flashcard* ➔ pelajari HTML, CSS, dan JavaScript dalam 9 *scene* AR berurutan langsung dari browser *smartphone* kamu.
 
 ---
 
-## Deskripsi
+## 📝 Deskripsi
 
-Code-AR adalah aplikasi WebAR yang dikembangkan sebagai Tugas Besar mata kuliah Teknologi Sistem Informasi. Aplikasi ini mengenalkan sintaks dan konsep dasar pengembangan web (HTML, CSS, JavaScript) melalui visualisasi objek 3D interaktif yang muncul di atas sebuah flashcard menggunakan kamera smartphone.
+**Code-AR** adalah aplikasi WebAR yang dikembangkan sebagai Tugas Besar mata kuliah **Teknologi Imersif**. Aplikasi ini mengenalkan sintaks dan konsep dasar pengembangan web (HTML, CSS, JavaScript) melalui visualisasi objek 3D interaktif yang muncul di atas sebuah *flashcard* menggunakan kamera *smartphone*.
 
-Pengguna tidak perlu menginstal aplikasi apapun. Cukup buka URL di browser, arahkan kamera ke flashcard, dan materi akan tampil secara otomatis dan berurutan.
-
----
-
-## Fitur
-
-- Satu flashcard untuk semua materi
-- 9 scene AR berurutan: 3 scene HTML → 3 scene CSS → 3 scene JavaScript
-- Navigasi antar scene dengan tombol Lanjut dan Sebelumnya
-- Progress bar yang menunjukkan posisi scene saat ini
-- Visualisasi objek 3D interaktif di setiap scene
-- Tidak perlu install aplikasi, cukup browser modern
-- Mendukung smartphone Android dan iOS
+Pengguna tidak perlu menginstal aplikasi apapun. Cukup buka URL di browser, arahkan kamera ke *flashcard*, dan materi akan tampil secara otomatis dan berurutan.
 
 ---
 
-## Materi yang Dipelajari
+## ✨ Fitur Utama
 
-HTML (Scene 1-3) — Jannah
-- Scene 1: Struktur Dokumen HTML
-- Scene 2: Elemen dan Tag HTML
-- Scene 3: Atribut HTML
-
-CSS (Scene 4-6) — Luthfi
-- Scene 4: Selektor dan Properti CSS
-- Scene 5: Box Model
-- Scene 6: Flexbox Layout
-
-JavaScript (Scene 7-9) — Indra
-- Scene 7: Variabel dan Tipe Data
-- Scene 8: Fungsi (Function)
-- Scene 9: Manipulasi DOM
+* **Single Marker:** Cukup satu *flashcard* untuk menampilkan semua materi.
+* **9 Scene AR Berurutan:** Terbagi menjadi 3 *scene* HTML ➔ 3 *scene* CSS ➔ 3 *scene* JavaScript.
+* **Navigasi Interaktif:** Berpindah antar *scene* dengan mudah menggunakan tombol *Lanjut* dan *Sebelumnya*.
+* **Progress Bar:** Indikator visual untuk menunjukkan posisi *scene* yang sedang aktif.
+* **Visualisasi 3D:** Objek 3D interaktif di setiap *scene* untuk mempermudah pemahaman.
+* **Tanpa Instalasi:** Cukup diakses melalui browser modern *smartphone* (Android & iOS).
 
 ---
 
-## Teknologi yang Digunakan
+## 📚 Materi yang Dipelajari
 
-- MindAR.js v1.2.5 — image tracking untuk mendeteksi marker flashcard
-- A-Frame v1.4.2 — render objek 3D di browser
-- HTML, CSS, JavaScript — bahasa dasar pembangunan aplikasi
+### 🌐 HTML (Scene 1-3) — *Jannah*
+* **Scene 1:** Struktur Dokumen HTML
+* **Scene 2:** Elemen dan Tag HTML
+* **Scene 3:** Atribut HTML
+
+### 🎨 CSS (Scene 4-6) — *Luthfi*
+* **Scene 4:** Selektor dan Properti CSS
+* **Scene 5:** Box Model
+* **Scene 6:** Flexbox Layout
+
+### ⚡ JavaScript (Scene 7-9) — *Indra*
+* **Scene 7:** Variabel dan Tipe Data
+* **Scene 8:** Fungsi (*Function*)
+* **Scene 9:** Manipulasi DOM
 
 ---
 
-## Struktur Folder
+## 🛠️ Teknologi yang Digunakan
+
+* **MindAR.js v1.2.5** — *Image tracking* untuk mendeteksi *marker flashcard*.
+* **A-Frame v1.4.2** — *Render* objek 3D di browser.
+* **HTML5, CSS3, & JavaScript (ES6)** — Bahasa dasar pembangunan aplikasi web.
+
+---
+
+## 📁 Struktur Folder
 
 code-ar/
-├── index.html          → halaman utama dan integrasi semua scene
-├── style.css           → styling UI overlay (tombol, progress bar, header)
-├── script.js           → logika MindAR, navigasi scene, interaksi
+├── index.html          # Halaman utama dan integrasi semua scene
+├── style.css           # Styling UI overlay (tombol, progress bar, header)
+├── script.js           # Logika MindAR, navigasi scene, dan interaksi
 ├── markers/
-│   └── target.mind     → file marker dari flashcard
+│   └── target.mind     # File marker dari flashcard
 ├── scenes/
-│   ├── scene-html.html → konten scene 1, 2, 3 (HTML)
-│   ├── scene-css.html  → konten scene 4, 5, 6 (CSS)
-│   └── scene-js.html   → konten scene 7, 8, 9 (JavaScript)
+│   ├── scene-html.html # Konten scene 1, 2, 3 (HTML)
+│   ├── scene-css.html  # Konten scene 4, 5, 6 (CSS)
+│   └── scene-js.html   # Konten scene 7, 8, 9 (JavaScript)
 └── assets/
-└── flashcard.png   → desain flashcard yang digunakan sebagai marker
+    └── flashcard.png   # Desain flashcard yang digunakan sebagai marker
 
 ---
 
 ## Cara Menjalankan
 
 1. Clone atau download repository ini
-   git clone https://github.com/username/code-ar.git
+   git clone https://github.com/jannahkrn/Code-AR.git
 
 2. Masuk ke folder proyek
    cd code-ar
