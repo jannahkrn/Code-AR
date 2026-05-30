@@ -23,18 +23,66 @@ const elScanHint     = document.getElementById('scan-hint');
 const elBtnPrev      = document.getElementById('btn-prev');
 const elBtnNext      = document.getElementById('btn-next');
 
+// Load konten scene dari file terpisah
+async function loadScenes() {
+  try {
+    const htmlRes = await fetch('scenes/scene-html.html');
+    const htmlText = await htmlRes.text();
+    const parser = new DOMParser();
+
+    const htmlDoc = fetch('scenes/scene-html.html')
+      .then(r => r.text())
+      .then(text => {
+        const doc = parser.parseFromString(text, 'text/html');
+        const container = document.getElementById('container-html');
+        doc.querySelectorAll('a-entity[id^="scene-"]').forEach(el => {
+          container.appendChild(document.importNode(el, true));
+        });
+      });
+
+    const cssDoc = fetch('scenes/scene-css.html')
+      .then(r => r.text())
+      .then(text => {
+        const doc = parser.parseFromString(text, 'text/html');
+        const container = document.getElementById('container-css');
+        doc.querySelectorAll('a-entity[id^="scene-"]').forEach(el => {
+          container.appendChild(document.importNode(el, true));
+        });
+      });
+
+    const jsDoc = fetch('scenes/scene-js.html')
+      .then(r => r.text())
+      .then(text => {
+        const doc = parser.parseFromString(text, 'text/html');
+        const container = document.getElementById('container-js');
+        doc.querySelectorAll('a-entity[id^="scene-"]').forEach(el => {
+          container.appendChild(document.importNode(el, true));
+        });
+      });
+
+    await Promise.all([htmlDoc, cssDoc, jsDoc]);
+    console.log('Semua scene berhasil dimuat');
+
+  } catch (err) {
+    console.error('Gagal memuat scene:', err);
+  }
+}
+
+// Setup event MindAR
 document.querySelector('a-scene').addEventListener('loaded', function () {
-  const target = document.querySelector('[mindar-image-target]');
+  loadScenes().then(() => {
+    const target = document.querySelector('[mindar-image-target]');
 
-  target.addEventListener('targetFound', function () {
-    markerFound = true;
-    elScanHint.classList.add('hidden');
-    updateUI();
-  });
+    target.addEventListener('targetFound', function () {
+      markerFound = true;
+      elScanHint.classList.add('hidden');
+      updateUI();
+    });
 
-  target.addEventListener('targetLost', function () {
-    markerFound = false;
-    elScanHint.classList.remove('hidden');
+    target.addEventListener('targetLost', function () {
+      markerFound = false;
+      elScanHint.classList.remove('hidden');
+    });
   });
 });
 
