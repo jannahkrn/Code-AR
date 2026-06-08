@@ -1,146 +1,113 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scene CSS - Code-AR</title>
+  <meta charset="UTF-8" />
+  <title>Scene CSS - Code-AR</title>
 </head>
-
 <body>
 
-    <a-entity id="scene-4" visible="false">
+  <a-entity id="scene-4" visible="false">
+    <a-plane position="0 0.1 0" width="1.8" height="1.1" color="#0d1b2a" opacity="0.92"></a-plane>
+    <a-text value="Selektor dan Properti CSS" position="0 0.55 0.01" align="center" color="#264de4" width="1.8"></a-text>
 
-        <a-plane position="0 0.1 0" width="1.8" height="1.1" color="#0d1b2a" opacity="0.92">
-        </a-plane>
+    <a-plane position="0 0.32 0.04" width="1.65" height="0.18" color="#111111" opacity="0.9"></a-plane>
+    <a-text value="h1 { color: blue; font-size: 24px; }" position="0 0.32 0.06" align="center" color="#2965f1" width="1.6"></a-text>
 
-        <a-text value="Selektor dan Properti CSS" position="0 0.55 0.01" align="center" color="#264de4" width="1.8">
-        </a-text>
+    <a-box position="-0.55 0.1 0.05" width="0.55" height="0.14" depth="0.02" color="#264de4"></a-box>
+    <a-text value="Selektor" position="-0.55 0.1 0.07" align="center" color="#ffffff" width="0.85"></a-text>
+    <a-text value="Memilih elemen" position="-0.55 -0.04 0.07" align="center" color="#aaaaaa" width="0.85"></a-text>
+    <a-text value="Contoh: h1, .kelas, #id" position="-0.55 -0.14 0.07" align="center" color="#6699ff" width="0.9"></a-text>
 
-        <a-plane position="0 0.32 0.04" width="1.65" height="0.18" color="#111111" opacity="0.9">
-        </a-plane>
-        <a-text value="h1 { color: blue; font-size: 24px; }" position="0 0.32 0.06" align="center" color="#2965f1"
-            width="1.6">
-        </a-text>
+    <a-box position="0 0.1 0.05" width="0.55" height="0.14" depth="0.02" color="#1a56db"></a-box>
+    <a-text value="Properti" position="0 0.1 0.07" align="center" color="#ffffff" width="0.85"></a-text>
+    <a-text value="Jenis gaya" position="0 -0.04 0.07" align="center" color="#aaaaaa" width="0.85"></a-text>
+    <a-text value="Contoh: color, font-size" position="0 -0.14 0.07" align="center" color="#6699ff" width="0.9"></a-text>
 
-        <a-box position="-0.55 0.1 0.05" width="0.55" height="0.14" depth="0.02" color="#264de4">
-        </a-box>
-        <a-text value="Selektor" position="-0.55 0.1 0.07" align="center" color="#ffffff" width="0.85">
-        </a-text>
-        <a-text value="Memilih elemen" position="-0.55 -0.04 0.07" align="center" color="#aaaaaa" width="0.85">
-        </a-text>
-        <a-text value="Contoh: h1, .kelas, #id" position="-0.55 -0.14 0.07" align="center" color="#6699ff" width="0.9">
-        </a-text>
+    <a-box position="0.55 0.1 0.05" width="0.55" height="0.14" depth="0.02" color="#0f3fa6"></a-box>
+    <a-text value="Nilai" position="0.55 0.1 0.07" align="center" color="#ffffff" width="0.85"></a-text>
+    <a-text value="Isi dari properti" position="0.55 -0.04 0.07" align="center" color="#aaaaaa" width="0.85"></a-text>
+    <a-text value="Contoh: blue, 24px" position="0.55 -0.14 0.07" align="center" color="#6699ff" width="0.9"></a-text>
 
-        <a-box position="0 0.1 0.05" width="0.55" height="0.14" depth="0.02" color="#1a56db">
-        </a-box>
-        <a-text value="Properti" position="0 0.1 0.07" align="center" color="#ffffff" width="0.85">
-        </a-text>
-        <a-text value="Jenis gaya" position="0 -0.04 0.07" align="center" color="#aaaaaa" width="0.85">
-        </a-text>
-        <a-text value="Contoh: color, font-size" position="0 -0.14 0.07" align="center" color="#6699ff" width="0.9">
-        </a-text>
+    <a-text value="CSS memilih elemen lalu memberi gaya padanya." position="0 -0.46 0.01" align="center" color="#888888" width="1.6"></a-text>
 
-        <a-box position="0.55 0.1 0.05" width="0.55" height="0.14" depth="0.02" color="#0f3fa6">
-        </a-box>
-        <a-text value="Nilai" position="0.55 0.1 0.07" align="center" color="#ffffff" width="0.85">
-        </a-text>
-        <a-text value="Isi dari properti" position="0.55 -0.04 0.07" align="center" color="#aaaaaa" width="0.85">
-        </a-text>
-        <a-text value="Contoh: blue, 24px" position="0.55 -0.14 0.07" align="center" color="#6699ff" width="0.9">
-        </a-text>
+    <a-sphere
+      position="0.78 0.55 0.1"
+      radius="0.07"
+      color="#264de4"
+      animation="property: rotation; to: 0 360 360; loop: true; dur: 4000; easing: linear">
+    </a-sphere>
+  </a-entity>
 
-        <a-text value="CSS memilih elemen lalu memberi gaya padanya." position="0 -0.46 0.01" align="center"
-            color="#888888" width="1.6">
-        </a-text>
-    </a-entity>
+  <a-entity id="scene-5" visible="false">
+    <a-plane position="0 0.1 0" width="1.8" height="1.1" color="#0d1b2a" opacity="0.92"></a-plane>
+    <a-text value="Box Model CSS" position="0 0.55 0.01" align="center" color="#264de4" width="1.8"></a-text>
 
-    <a-entity id="scene-5" visible="false">
+    <a-box position="0 0.12 0.01" width="1.2" height="0.7" depth="0.01" color="#e67e22" opacity="0.35"></a-box>
+    <a-text value="MARGIN" position="-0.52 0.43 0.05" align="left" color="#e67e22" width="0.6"></a-text>
+    <a-text value="Jarak luar elemen" position="-0.52 0.35 0.05" align="left" color="#e67e22" width="0.7"></a-text>
 
-        <a-plane position="0 0.1 0" width="1.8" height="1.1" color="#0d1b2a" opacity="0.92">
-        </a-plane>
+    <a-box position="0 0.12 0.02" width="0.96" height="0.52" depth="0.01" color="#e74c3c" opacity="0.5"></a-box>
+    <a-text value="BORDER" position="-0.42 0.35 0.05" align="left" color="#e74c3c" width="0.6"></a-text>
+    <a-text value="Garis tepi elemen" position="-0.42 0.27 0.05" align="left" color="#e74c3c" width="0.7"></a-text>
 
-        <a-text value="Box Model CSS" position="0 0.55 0.01" align="center" color="#264de4" width="1.8">
-        </a-text>
+    <a-box position="0 0.12 0.03" width="0.72" height="0.36" depth="0.01" color="#3498db" opacity="0.65"></a-box>
+    <a-text value="PADDING" position="-0.32 0.27 0.05" align="left" color="#3498db" width="0.6"></a-text>
+    <a-text value="Jarak dalam elemen" position="-0.32 0.19 0.05" align="left" color="#3498db" width="0.7"></a-text>
 
-        <a-box position="0 0.12 0.01" width="1.2" height="0.7" depth="0.01" color="#e67e22" opacity="0.35">
-        </a-box>
-        <a-text value="MARGIN" position="-0.52 0.43 0.05" align="left" color="#e67e22" width="0.6">
-        </a-text>
-        <a-text value="Jarak luar elemen" position="-0.52 0.35 0.05" align="left" color="#e67e22" width="0.7">
-        </a-text>
+    <a-box position="0 0.12 0.04" width="0.46" height="0.2" depth="0.01" color="#2ecc71"></a-box>
+    <a-text value="CONTENT" position="0 0.12 0.06" align="center" color="#ffffff" width="0.7"></a-text>
 
-        <a-box position="0 0.12 0.02" width="0.96" height="0.52" depth="0.01" color="#e74c3c" opacity="0.5">
-        </a-box>
-        <a-text value="BORDER" position="-0.42 0.35 0.05" align="left" color="#e74c3c" width="0.6">
-        </a-text>
-        <a-text value="Garis tepi elemen" position="-0.42 0.27 0.05" align="left" color="#e74c3c" width="0.7">
-        </a-text>
+    <a-text value="Setiap elemen HTML adalah kotak berlapis." position="0 -0.38 0.01" align="center" color="#888888" width="1.6"></a-text>
+  </a-entity>
 
-        <a-box position="0 0.12 0.03" width="0.72" height="0.36" depth="0.01" color="#3498db" opacity="0.65">
-        </a-box>
-        <a-text value="PADDING" position="-0.32 0.27 0.05" align="left" color="#3498db" width="0.6">
-        </a-text>
-        <a-text value="Jarak dalam elemen" position="-0.32 0.19 0.05" align="left" color="#3498db" width="0.7">
-        </a-text>
+  <a-entity id="scene-6" visible="false">
+    <a-plane position="0 0.1 0" width="1.8" height="1.1" color="#0d1b2a" opacity="0.92"></a-plane>
+    <a-text value="Flexbox Layout" position="0 0.55 0.01" align="center" color="#264de4" width="1.8"></a-text>
+    <a-text value="flex-direction: row" position="0 0.42 0.01" align="center" color="#6699ff" width="1.4"></a-text>
 
-        <a-box position="0 0.12 0.04" width="0.46" height="0.2" depth="0.01" color="#2ecc71">
-        </a-box>
-        <a-text value="CONTENT" position="0 0.12 0.06" align="center" color="#ffffff" width="0.7">
-        </a-text>
+    <a-plane position="0 0.22 0.03" width="1.55" height="0.26" color="#111827" opacity="0.8"></a-plane>
 
-        <a-text value="Setiap elemen HTML adalah kotak berlapis." position="0 -0.38 0.01" align="center" color="#888888"
-            width="1.6">
-        </a-text>
-    </a-entity>
+    <a-box position="-0.52 0.22 0.05" width="0.36" height="0.2" depth="0.05" color="#264de4"></a-box>
+    <a-text value="1" position="-0.52 0.22 0.09" align="center" color="#ffffff" width="0.5"></a-text>
 
-    <a-entity id="scene-6" visible="false">
-        <a-plane position="0 0.1 0" width="1.8" height="1.1" color="#0d1b2a" opacity="0.92">
-        </a-plane>
+    <a-box position="0 0.22 0.05" width="0.36" height="0.2" depth="0.05" color="#2965f1"></a-box>
+    <a-text value="2" position="0 0.22 0.09" align="center" color="#ffffff" width="0.5"></a-text>
 
-        <a-text value="Flexbox Layout" position="0 0.55 0.01" align="center" color="#264de4" width="1.8">
-        </a-text>
+    <a-box position="0.52 0.22 0.05" width="0.36" height="0.2" depth="0.05" color="#1a56db"></a-box>
+    <a-text value="3" position="0.52 0.22 0.09" align="center" color="#ffffff" width="0.5"></a-text>
 
-        <a-text value="flex-direction: row" position="0 0.42 0.01" align="center" color="#6699ff" width="1.4">
-        </a-text>
+    <a-plane position="0 -0.06 0.04" width="1.65" height="0.3" color="#111111" opacity="0.9"></a-plane>
+    <a-text value=".container {" position="-0.7 0.02 0.06" align="left" color="#aaaaaa" width="1.2"></a-text>
+    <a-text value="display: flex;" position="-0.55 -0.06 0.06" align="left" color="#2965f1" width="1.2"></a-text>
+    <a-text value="flex-direction: row;" position="-0.55 -0.16 0.06" align="left" color="#2965f1" width="1.2"></a-text>
 
-        <a-plane position="0 0.22 0.03" width="1.55" height="0.26" color="#111827" opacity="0.8">
-        </a-plane>
+    <a-text value="justify-content: space-between" position="0 -0.3 0.01" align="center" color="#6699ff" width="1.5"></a-text>
+    <a-text value="Flexbox menyusun elemen dalam satu arah secara fleksibel." position="0 -0.46 0.01" align="center" color="#888888" width="1.6"></a-text>
+  </a-entity>
 
-        <a-box position="-0.52 0.22 0.05" width="0.36" height="0.2" depth="0.05" color="#264de4">
-        </a-box>
-        <a-text value="1" position="-0.52 0.22 0.09" align="center" color="#ffffff" width="0.5">
-        </a-text>
+  <a-entity id="scene-11" visible="false">
+    <a-plane position="0 0.1 0" width="1.8" height="1.1" color="#0d1b2a" opacity="0.95"></a-plane>
+    <a-text value="Game: Tebak Properti CSS!" position="0 0.55 0.01" align="center" color="#264de4" width="1.8"></a-text>
+    <a-text id="css-game-score" value="Skor: 0 / 4" position="0.65 0.43 0.01" align="right" color="#ffffff" width="0.9"></a-text>
 
-        <a-box position="0 0.22 0.05" width="0.36" height="0.2" depth="0.05" color="#2965f1">
-        </a-box>
-        <a-text value="2" position="0 0.22 0.09" align="center" color="#ffffff" width="0.5">
-        </a-text>
+    <a-text id="css-game-question" value="Memuat soal..." position="0 0.32 0.01" align="center" color="#ffdd88" width="1.65"></a-text>
 
-        <a-box position="0.52 0.22 0.05" width="0.36" height="0.2" depth="0.05" color="#1a56db">
-        </a-box>
-        <a-text value="3" position="0.52 0.22 0.09" align="center" color="#ffffff" width="0.5">
-        </a-text>
+    <a-box id="css-opt-A" class="clickable" position="-0.46 0.14 0.05" width="0.7" height="0.14" depth="0.03" color="#1a56db"></a-box>
+    <a-text id="css-opt-A-text" value="A" position="-0.46 0.14 0.07" align="center" color="#ffffff" width="1.0"></a-text>
 
-        <a-plane position="0 -0.06 0.04" width="1.65" height="0.3" color="#111111" opacity="0.9">
-        </a-plane>
-        <a-text value=".container {" position="-0.7 0.02 0.06" align="left" color="#aaaaaa" width="1.2">
-        </a-text>
-        <a-text value="display: flex;" position="-0.55 -0.06 0.06" align="left" color="#2965f1" width="1.2">
-        </a-text>
-        <a-text value="flex-direction: row;" position="-0.55 -0.16 0.06" align="left" color="#2965f1" width="1.2">
-        </a-text>
+    <a-box id="css-opt-B" class="clickable" position="0.46 0.14 0.05" width="0.7" height="0.14" depth="0.03" color="#1a56db"></a-box>
+    <a-text id="css-opt-B-text" value="B" position="0.46 0.14 0.07" align="center" color="#ffffff" width="1.0"></a-text>
 
-        <a-text value="justify-content: space-between" position="0 -0.3 0.01" align="center" color="#6699ff"
-            width="1.5">
-        </a-text>
+    <a-box id="css-opt-C" class="clickable" position="-0.46 -0.04 0.05" width="0.7" height="0.14" depth="0.03" color="#1a56db"></a-box>
+    <a-text id="css-opt-C-text" value="C" position="-0.46 -0.04 0.07" align="center" color="#ffffff" width="1.0"></a-text>
 
-        <a-text value="Flexbox menyusun elemen dalam satu arah secara fleksibel." position="0 -0.46 0.01" align="center"
-            color="#888888" width="1.6">
-        </a-text>
+    <a-box id="css-opt-D" class="clickable" position="0.46 -0.04 0.05" width="0.7" height="0.14" depth="0.03" color="#1a56db"></a-box>
+    <a-text id="css-opt-D-text" value="D" position="0.46 -0.04 0.07" align="center" color="#ffffff" width="1.0"></a-text>
 
-    </a-entity>
+    <a-text id="css-game-feedback" value="" position="0 -0.22 0.01" align="center" color="#66ff99" width="1.6"></a-text>
+    <a-text id="css-game-result" value="" position="0 -0.36 0.01" align="center" color="#F7DF1E" width="1.6"></a-text>
+    <a-text value="Tap kotak jawaban untuk menjawab" position="0 -0.46 0.01" align="center" color="#555555" width="1.5"></a-text>
+  </a-entity>
 
 </body>
-
 </html>
