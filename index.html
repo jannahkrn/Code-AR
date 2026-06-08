@@ -26,6 +26,30 @@
         <p>Arahkan kamera ke flashcard Code-AR</p>
       </div>
 
+      <!-- GAME OVERLAY: muncul saat scene 10, 11, 12 -->
+      <div id="game-overlay" class="hidden">
+        <div id="game-box">
+          <div id="game-score-display">Skor: 0 / 4</div>
+          <div id="game-question-display">Memuat soal...</div>
+          <div id="game-options">
+            <button class="game-btn" id="game-btn-A" onclick="answerGameHTML(0)">A</button>
+            <button class="game-btn" id="game-btn-B" onclick="answerGameHTML(1)">B</button>
+            <button class="game-btn" id="game-btn-C" onclick="answerGameHTML(2)">C</button>
+            <button class="game-btn" id="game-btn-D" onclick="answerGameHTML(3)">D</button>
+          </div>
+          <div id="game-feedback-display"></div>
+          <div id="game-result-display"></div>
+        </div>
+      </div>
+
+      <div id="js-interaction-overlay" class="hidden">
+        <div id="js-interaction-box">
+          <div id="js-interaction-info">Tap tombol untuk berinteraksi</div>
+          <div id="js-interaction-buttons">
+          </div>
+        </div>
+      </div>
+
       <div id="nav-buttons">
         <button id="btn-prev" onclick="prevScene()">&#8592; Sebelumnya</button>
         <button id="btn-next" onclick="nextScene()">Lanjut &#8594;</button>
