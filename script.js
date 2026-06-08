@@ -83,69 +83,8 @@ async function loadScenes() {
     await Promise.all([htmlDoc, cssDoc, jsDoc]);
     console.log('Semua scene berhasil dimuat');
 
-    setupGameClicks();
-
   } catch (err) {
     console.error('Gagal memuat scene:', err);
-  }
-}
-
-function setupGameClicks() {
-  ['A', 'B', 'C', 'D'].forEach(function (opt, i) {
-    const el = document.getElementById('html-opt-' + opt);
-    if (el) el.addEventListener('click', function () { answerGame('html', i); });
-  });
-
-  ['A', 'B', 'C', 'D'].forEach(function (opt, i) {
-    const el = document.getElementById('css-opt-' + opt);
-    if (el) el.addEventListener('click', function () { answerGame('css', i); });
-  });
-
-  ['A', 'B', 'C', 'D'].forEach(function (opt, i) {
-    const el = document.getElementById('js-opt-' + opt);
-    if (el) el.addEventListener('click', function () { answerGame('js', i); });
-  });
-
-  const varBox = document.getElementById('var-box');
-  if (varBox) varBox.addEventListener('click', function () {
-    playSound('button3');
-    const el = document.getElementById('js-info');
-    if (el) el.setAttribute('value', 'var: bisa diubah, scope global/function');
-  });
-  const letBox = document.getElementById('let-box');
-  if (letBox) letBox.addEventListener('click', function () {
-    playSound('button3');
-    const el = document.getElementById('js-info');
-    if (el) el.setAttribute('value', 'let: bisa diubah, scope block {}');
-  });
-  const constBox = document.getElementById('const-box');
-  if (constBox) constBox.addEventListener('click', function () {
-    playSound('button3');
-    const el = document.getElementById('js-info');
-    if (el) el.setAttribute('value', 'const: TIDAK bisa diubah setelah ditetapkan');
-  });
-
-  const inputBox = document.getElementById('input-box');
-  if (inputBox) inputBox.addEventListener('click', function () {
-    playSound('button3');
-    const randomNum = Math.floor(Math.random() * 10) + 1;
-    const result = randomNum * 2;
-    const el = document.getElementById('function-result');
-    if (el) el.setAttribute('value', 'kaliDua(' + randomNum + ') = ' + result);
-  });
-
-  const domBtn = document.getElementById('dom-button');
-  if (domBtn) {
-    let toggled = false;
-    domBtn.addEventListener('click', function () {
-      playSound('button3');
-      toggled = !toggled;
-      const title = document.getElementById('dom-title');
-      const info  = document.getElementById('dom-info');
-      if (title) title.setAttribute('value', toggled ? 'Teks Berubah!' : 'Halo Dunia');
-      if (info)  info.setAttribute('value', toggled ? 'DOM berhasil dimanipulasi!' : 'Tap tombol untuk mengubah isi halaman');
-      domBtn.setAttribute('color', toggled ? '#e74c3c' : '#3498db');
-    });
   }
 }
 
@@ -172,13 +111,24 @@ function showScene(num) {
     const el = document.getElementById('scene-' + i);
     if (el) el.setAttribute('visible', i === num ? 'true' : 'false');
   }
-  if (num === 10) initGame('html');
-  if (num === 11) initGame('css');
-  if (num === 12) initGame('js');
 
-  const badge = document.getElementById('game-badge');
-  if (badge) {
-    badge.style.display = (num === 10 || num === 11 || num === 12) ? 'block' : 'none';
+  const gameOverlay = document.getElementById('game-overlay');
+  const jsOverlay   = document.getElementById('js-interaction-overlay');
+
+  if (num === 10 || num === 11 || num === 12) {
+    gameOverlay.classList.remove('hidden');
+    jsOverlay.classList.add('hidden');
+    const type = num === 10 ? 'html' : num === 11 ? 'css' : 'js';
+    initGame(type);
+  } else {
+    gameOverlay.classList.add('hidden');
+  }
+
+  if (num === 7 || num === 8 || num === 9) {
+    jsOverlay.classList.remove('hidden');
+    setupJsInteractionButtons(num);
+  } else {
+    jsOverlay.classList.add('hidden');
   }
 }
 
@@ -249,11 +199,89 @@ function showToast(message) {
   }, 4000);
 }
 
+function setupJsInteractionButtons(sceneNum) {
+  const infoEl    = document.getElementById('js-interaction-info');
+  const btnsEl    = document.getElementById('js-interaction-buttons');
+  btnsEl.innerHTML = '';
+
+  if (sceneNum === 7) {
+    infoEl.textContent = 'Tap var, let, atau const untuk penjelasan';
+
+    const varBtn = document.createElement('button');
+    varBtn.className = 'js-btn js-btn-var';
+    varBtn.textContent = 'var';
+    varBtn.onclick = function () {
+      playSound('button3');
+      infoEl.textContent = 'var: bisa diubah, scope global / function';
+    };
+
+    const letBtn = document.createElement('button');
+    letBtn.className = 'js-btn js-btn-let';
+    letBtn.textContent = 'let';
+    letBtn.onclick = function () {
+      playSound('button3');
+      infoEl.textContent = 'let: bisa diubah, scope block { }';
+    };
+
+    const constBtn = document.createElement('button');
+    constBtn.className = 'js-btn js-btn-const';
+    constBtn.textContent = 'const';
+    constBtn.onclick = function () {
+      playSound('button3');
+      infoEl.textContent = 'const: TIDAK bisa diubah setelah ditetapkan';
+    };
+
+    btnsEl.appendChild(varBtn);
+    btnsEl.appendChild(letBtn);
+    btnsEl.appendChild(constBtn);
+  }
+
+  if (sceneNum === 8) {
+    infoEl.textContent = 'Tap Input untuk mencoba fungsi kaliDua()';
+
+    const inputBtn = document.createElement('button');
+    inputBtn.className = 'js-btn js-btn-input';
+    inputBtn.textContent = '▶ Tap Input';
+    inputBtn.onclick = function () {
+      playSound('button3');
+      const randomNum = Math.floor(Math.random() * 10) + 1;
+      const result = randomNum * 2;
+      infoEl.textContent = 'kaliDua(' + randomNum + ') = ' + result;
+    };
+
+    btnsEl.appendChild(inputBtn);
+  }
+
+  if (sceneNum === 9) {
+    infoEl.textContent = 'Tap tombol untuk mengubah isi halaman';
+    let toggled = false;
+
+    const domBtn = document.createElement('button');
+    domBtn.className = 'js-btn js-btn-dom';
+    domBtn.textContent = '🖱 Ubah Teks DOM';
+    domBtn.onclick = function () {
+      playSound('button3');
+      toggled = !toggled;
+
+      const domTitle = document.getElementById('dom-title');
+      const domInfo  = document.getElementById('dom-info');
+
+      if (domTitle) domTitle.setAttribute('value', toggled ? 'Teks Berubah!' : 'Halo Dunia');
+      if (domInfo)  domInfo.setAttribute('value', toggled ? 'DOM berhasil dimanipulasi!' : 'Tap tombol untuk mengubah isi halaman');
+
+      infoEl.textContent = toggled ? '✅ DOM berhasil dimanipulasi!' : 'Tap tombol untuk mengubah isi halaman';
+      domBtn.style.background = toggled ? '#e74c3c' : '#3498db';
+    };
+
+    btnsEl.appendChild(domBtn);
+  }
+}
+
 const htmlQuestions = [
   { q: 'Tag untuk JUDUL UTAMA halaman?', opts: ['<h1>', '<p>', '<div>', '<span>'], answer: 0 },
   { q: 'Tag untuk membuat LINK / tautan?', opts: ['<img>', '<a>', '<button>', '<div>'], answer: 1 },
   { q: 'Tag untuk menampilkan GAMBAR?', opts: ['<video>', '<img>', '<figure>', '<src>'], answer: 1 },
-  { q: 'Yang menandai awal dokumen HTML?', opts: ['<html>', '<body>', '<!DOCTYPE html>', '<head>'], answer: 2 },
+  { q: 'Yang menandai awal dokumen HTML?', opts: ['<html>', '<body>', '<!DOCTYPE>', '<head>'], answer: 2 },
 ];
 
 const cssQuestions = [
@@ -270,83 +298,109 @@ const jsQuestions = [
   { q: 'Cara memanggil fungsi "sapa"?', opts: ['sapa', 'sapa()', 'call sapa', 'run sapa'], answer: 1 },
 ];
 
-let gameState = { index: 0, score: 0, answered: false };
+let gameState    = { index: 0, score: 0, answered: false, type: 'html' };
+let currentGameBtns = [];
 
 function initGame(type) {
-  gameState = { index: 0, score: 0, answered: false };
-  renderGameQuestion(type);
-}
+  gameState = { index: 0, score: 0, answered: false, type: type };
 
-function renderGameQuestion(type) {
-  const questions = type === 'html' ? htmlQuestions : type === 'css' ? cssQuestions : jsQuestions;
-  const prefix = type;
-  const q = questions[gameState.index];
+  const color = type === 'html' ? '#264de4' : type === 'css' ? '#1a56db' : '#b8a600';
+  document.querySelectorAll('.game-btn').forEach(function (btn) {
+    btn.style.background = color;
+    btn.style.color = '#ffffff';
+  });
 
-  const defaultColor = type === 'html' ? '#264de4' : type === 'css' ? '#1a56db' : '#F7DF1E';
-  const textColor    = type === 'js' ? '#000000' : '#ffffff';
-
-  document.getElementById(prefix + '-game-score').setAttribute('value', 'Skor: ' + gameState.score + ' / ' + questions.length);
-  document.getElementById(prefix + '-game-question').setAttribute('value', q.q);
-
-  ['A', 'B', 'C', 'D'].forEach(function (opt, i) {
-    const box  = document.getElementById(prefix + '-opt-' + opt);
-    const text = document.getElementById(prefix + '-opt-' + opt + '-text');
-    if (box)  box.setAttribute('color', defaultColor);
-    if (text) {
-      text.setAttribute('value', q.opts[i]);
-      text.setAttribute('color', textColor);
+  ['A','B','C','D'].forEach(function(opt, i) {
+    const btn = document.getElementById('game-btn-' + opt);
+    if (btn) {
+      btn.onclick = function () { answerGame(i); };
     }
   });
 
-  document.getElementById(prefix + '-game-feedback').setAttribute('value', '');
-  document.getElementById(prefix + '-game-result').setAttribute('value', '');
+  renderGameQuestion();
+}
+
+function renderGameQuestion() {
+  const questions = gameState.type === 'html' ? htmlQuestions :
+                    gameState.type === 'css'  ? cssQuestions  : jsQuestions;
+  const q = questions[gameState.index];
+  const defaultColor = gameState.type === 'html' ? '#264de4' :
+                       gameState.type === 'css'  ? '#1a56db' : '#b8a600';
+
+  document.getElementById('game-score-display').textContent =
+    'Skor: ' + gameState.score + ' / ' + questions.length;
+  document.getElementById('game-question-display').textContent = q.q;
+  document.getElementById('game-feedback-display').textContent = '';
+  document.getElementById('game-result-display').textContent   = '';
+
+  const opts = ['A','B','C','D'];
+  opts.forEach(function (opt, i) {
+    const btn = document.getElementById('game-btn-' + opt);
+    if (btn) {
+      btn.textContent    = q.opts[i];
+      btn.style.background = defaultColor;
+      btn.style.color    = '#ffffff';
+      btn.disabled       = false;
+      btn.className      = 'game-btn';
+    }
+  });
+
   gameState.answered = false;
 }
 
-function answerGame(type, optIndex) {
+function answerGame(optIndex) {
   if (gameState.answered) return;
-  const questions = type === 'html' ? htmlQuestions : type === 'css' ? cssQuestions : jsQuestions;
-  const prefix = type;
+
+  const questions = gameState.type === 'html' ? htmlQuestions :
+                    gameState.type === 'css'  ? cssQuestions  : jsQuestions;
   const q = questions[gameState.index];
-  const opts = ['A', 'B', 'C', 'D'];
+  const opts = ['A','B','C','D'];
   const isCorrect = optIndex === q.answer;
 
   gameState.answered = true;
 
-  const chosenBox = document.getElementById(prefix + '-opt-' + opts[optIndex]);
-  const correctBox = document.getElementById(prefix + '-opt-' + opts[q.answer]);
+  opts.forEach(function (opt) {
+    const btn = document.getElementById('game-btn-' + opt);
+    if (btn) btn.disabled = true;
+  });
+
+  const chosenBtn  = document.getElementById('game-btn-' + opts[optIndex]);
+  const correctBtn = document.getElementById('game-btn-' + opts[q.answer]);
 
   if (isCorrect) {
-    if (chosenBox) chosenBox.setAttribute('color', '#27ae60');
+    if (chosenBtn) { chosenBtn.style.background = '#27ae60'; chosenBtn.style.color = '#fff'; }
     playSound('button3');
   } else {
-    if (chosenBox) chosenBox.setAttribute('color', '#c0392b');
-    if (correctBox) correctBox.setAttribute('color', '#27ae60');
+    if (chosenBtn)  { chosenBtn.style.background  = '#c0392b'; chosenBtn.style.color = '#fff'; }
+    if (correctBtn) { correctBtn.style.background = '#27ae60'; correctBtn.style.color = '#fff'; }
     playSound('button4');
   }
 
   if (isCorrect) gameState.score++;
 
-  document.getElementById(prefix + '-game-feedback').setAttribute(
-    'value',
-    isCorrect ? '✅ Benar!' : '❌ Salah! Jawaban: ' + q.opts[q.answer]
-  );
-  document.getElementById(prefix + '-game-score').setAttribute(
-    'value', 'Skor: ' + gameState.score + ' / ' + questions.length
-  );
+  document.getElementById('game-feedback-display').textContent =
+    isCorrect ? '✅ Benar!' : '❌ Salah! Jawaban: ' + q.opts[q.answer];
+  document.getElementById('game-score-display').textContent =
+    'Skor: ' + gameState.score + ' / ' + questions.length;
 
   setTimeout(function () {
     gameState.index++;
     if (gameState.index < questions.length) {
-      renderGameQuestion(type);
+      renderGameQuestion();
     } else {
       const total = questions.length;
       const pesan =
-        gameState.score === total ? '🏆 Sempurna! Skor ' + gameState.score + '/' + total :
+        gameState.score === total          ? '🏆 Sempurna! Skor ' + gameState.score + '/' + total :
         gameState.score >= Math.ceil(total / 2) ? '👍 Bagus! Skor ' + gameState.score + '/' + total :
-        '📚 Terus semangat! Skor ' + gameState.score + '/' + total;
-      document.getElementById(prefix + '-game-result').setAttribute('value', pesan);
-      document.getElementById(prefix + '-game-question').setAttribute('value', 'Game selesai! Tekan Lanjut →');
+                                               '📚 Terus semangat! Skor ' + gameState.score + '/' + total;
+      document.getElementById('game-result-display').textContent   = pesan;
+      document.getElementById('game-question-display').textContent = 'Game selesai! Tekan Lanjut →';
+      document.getElementById('game-feedback-display').textContent = '';
+
+      opts.forEach(function (opt) {
+        const btn = document.getElementById('game-btn-' + opt);
+        if (btn) { btn.disabled = true; btn.style.opacity = '0.4'; }
+      });
     }
   }, 1500);
 }
