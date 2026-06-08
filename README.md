@@ -136,9 +136,9 @@ Scan Flashcard → Scene 1-3 (HTML) → 🎮 Mini Game HTML → Scene 4-6 (CSS) 
 
 | Nama   | Topik      | Tanggung Jawab                                                                         |
 |--------|------------|----------------------------------------------------------------------------------------|
-| Jannah | HTML       | Desain flashcard, struktur proyek, scene 1-3, mini game HTML (scene 10), integrasi     |
-| Luthfi | CSS        | Scene 4-6 (materi CSS), mini game CSS (scene 11), sound interaktif                    |
-| Indra  | JavaScript | Scene 7-9 (materi JavaScript), mini game JS (scene 12), objek 3D animasi              |
+| Jannah | HTML       | Desain flashcard, struktur proyek, scene 1-3, mini game HTML (scene 10), integrasi, sound interaktif, objek 3D animasi                     |
+| Luthfi | CSS        | Scene 4-6 (materi CSS), mini game CSS (scene 11)                  |
+| Indra  | JavaScript | Scene 7-9 (materi JavaScript), mini game JS (scene 12)|
 
 ---
 
