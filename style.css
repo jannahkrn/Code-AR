@@ -157,7 +157,7 @@ button.disabled {
 
 #progress-fill {
   height: 100%;
-  width: 11.11%;
+  width: 8.33%;
   background: #F0DB4F;
   border-radius: 3px;
   transition: width 0.4s ease;
@@ -184,4 +184,21 @@ button.disabled {
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateX(-50%) translateY(12px); }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+#game-badge {
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(240, 219, 79, 0.95);
+  color: #1a1600;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 18px;
+  border-radius: 20px;
+  z-index: 1000;
+  display: none;
+  pointer-events: none;
+  letter-spacing: 1px;
 }
