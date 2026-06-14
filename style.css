@@ -157,7 +157,7 @@ button.disabled {
 
 #progress-fill {
   height: 100%;
-  width: 8.33%;
+  width: 6.67%;
   background: #F0DB4F;
   border-radius: 3px;
   transition: width 0.4s ease;
@@ -186,22 +186,6 @@ button.disabled {
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
-#game-badge {
-  position: fixed;
-  top: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(240, 219, 79, 0.95);
-  color: #1a1600;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 4px 18px;
-  border-radius: 20px;
-  z-index: 1000;
-  display: none;
-  pointer-events: none;
-  letter-spacing: 1px;
-}
 
 #game-overlay {
   display: flex;
@@ -223,7 +207,7 @@ button.disabled {
   max-width: 360px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 #game-score-display {
@@ -231,6 +215,14 @@ button.disabled {
   color: #aaaaaa;
   text-align: right;
   font-weight: 600;
+}
+
+#game-wrong-display {
+  font-size: 12px;
+  color: #ff6666;
+  text-align: center;
+  font-weight: 700;
+  min-height: 16px;
 }
 
 #game-question-display {
@@ -267,24 +259,8 @@ button.disabled {
   transform: scale(0.96);
 }
 
-.game-btn.correct {
-  background: #27ae60;
-  color: #ffffff;
-}
-
-.game-btn.wrong {
-  background: #c0392b;
-  color: #ffffff;
-}
-
-.game-btn.reveal {
-  background: #27ae60;
-  color: #ffffff;
-}
-
 .game-btn:disabled {
   cursor: not-allowed;
-  opacity: 0.85;
 }
 
 #game-feedback-display {
@@ -303,59 +279,29 @@ button.disabled {
   min-height: 18px;
 }
 
-#js-interaction-overlay {
-  display: flex;
-  justify-content: center;
+#game-retry-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 0;
+  background: #e74c3c;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
   pointer-events: auto;
 }
 
-#js-interaction-overlay.hidden {
+#game-retry-btn:active {
+  transform: scale(0.97);
+}
+
+#game-retry-btn:hover {
+  background: #c0392b;
+}
+
+#game-retry-btn.hidden {
   display: none;
 }
-
-#js-interaction-box {
-  background: rgba(10, 10, 30, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
-  padding: 14px 16px;
-  width: 100%;
-  max-width: 360px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-#js-interaction-info {
-  font-size: 13px;
-  color: #F7DF1E;
-  font-weight: 600;
-  text-align: center;
-}
-
-#js-interaction-buttons {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.js-btn {
-  padding: 10px 16px;
-  border: none;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.1s;
-  min-height: 44px;
-}
-
-.js-btn:active {
-  transform: scale(0.96);
-}
-
-.js-btn-var   { background: #e74c3c; color: #ffffff; }
-.js-btn-let   { background: #3498db; color: #ffffff; }
-.js-btn-const { background: #2ecc71; color: #000000; }
-.js-btn-input { background: #3498db; color: #ffffff; }
-.js-btn-dom   { background: #3498db; color: #ffffff; }
