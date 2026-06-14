@@ -18,7 +18,7 @@ function playSound(name) {
 
 window.addEventListener('DOMContentLoaded', loadSounds);
 
-const totalScenes = 12;
+const totalScenes = 15;
 
 const sceneData = {
   1:  { topic: 'HTML', title: 'Struktur Dokumen' },
@@ -33,10 +33,17 @@ const sceneData = {
   10: { topic: 'HTML', title: '🎮 Mini Game HTML' },
   11: { topic: 'CSS',  title: '🎮 Mini Game CSS' },
   12: { topic: 'JS',   title: '🎮 Mini Game JS' },
+  13: { topic: 'HTML', title: '🤖 Robot Playground' },
+  14: { topic: 'CSS',  title: '🤖 Robot Playground' },
+  15: { topic: 'JS',   title: '🤖 Robot Playground' },
 };
 
 let currentScene = 1;
 let markerFound = false;
+
+let gamePassedHTML = false;
+let gamePassedCSS  = false;
+let gamePassedJS   = false;
 
 const elCurrentScene = document.getElementById('current-scene');
 const elTopicLabel   = document.getElementById('topic-label');
@@ -45,6 +52,11 @@ const elProgressFill = document.getElementById('progress-fill');
 const elScanHint     = document.getElementById('scan-hint');
 const elBtnPrev      = document.getElementById('btn-prev');
 const elBtnNext      = document.getElementById('btn-next');
+
+document.getElementById('game-btn-A').onclick = function () { answerGame(0); };
+document.getElementById('game-btn-B').onclick = function () { answerGame(1); };
+document.getElementById('game-btn-C').onclick = function () { answerGame(2); };
+document.getElementById('game-btn-D').onclick = function () { answerGame(3); };
 
 async function loadScenes() {
   try {
@@ -80,12 +92,70 @@ async function loadScenes() {
         });
       });
 
+    buildRobotScenes();
+
     await Promise.all([htmlDoc, cssDoc, jsDoc]);
     console.log('Semua scene berhasil dimuat');
 
   } catch (err) {
     console.error('Gagal memuat scene:', err);
   }
+}
+
+function buildRobotScenes() {
+  const container = document.getElementById('container-robot');
+
+  ['scene-13', 'scene-14', 'scene-15'].forEach(function (id) {
+    const entity = document.createElement('a-entity');
+    entity.setAttribute('id', id);
+    entity.setAttribute('visible', 'false');
+
+    const bg = document.createElement('a-plane');
+    bg.setAttribute('position', '0 0.1 0');
+    bg.setAttribute('width', '1.8');
+    bg.setAttribute('height', '1.1');
+    bg.setAttribute('color', '#0a0a1e');
+    bg.setAttribute('opacity', '0.95');
+    entity.appendChild(bg);
+
+    const title = document.createElement('a-text');
+    title.setAttribute('value', '🤖 Robot Playground');
+    title.setAttribute('position', '0 0.55 0.01');
+    title.setAttribute('align', 'center');
+    title.setAttribute('color', '#F7DF1E');
+    title.setAttribute('width', '1.8');
+    entity.appendChild(title);
+
+    const model = document.createElement('a-entity');
+    model.setAttribute('gltf-model', 'url(assets/robot_playground.glb)');
+    model.setAttribute('position', '0 -0.05 0.1');
+    model.setAttribute('scale', '0.25 0.25 0.25');
+    model.setAttribute('animation', 'property: rotation; to: 0 360 0; loop: true; dur: 4000; easing: linear');
+    entity.appendChild(model);
+
+    let subText = '';
+    if (id === 'scene-13') subText = 'Siap uji kemampuan HTML-mu?';
+    else if (id === 'scene-14') subText = 'Siap uji kemampuan CSS-mu?';
+    else subText = 'Siap uji kemampuan JavaScript-mu?';
+
+    const sub = document.createElement('a-text');
+    sub.setAttribute('value', subText);
+    sub.setAttribute('position', '0 -0.38 0.01');
+    sub.setAttribute('align', 'center');
+    sub.setAttribute('color', '#ffffff');
+    sub.setAttribute('width', '1.6');
+    entity.appendChild(sub);
+
+    const hint = document.createElement('a-text');
+    hint.setAttribute('value', 'Tekan Lanjut untuk memulai mini game!');
+    hint.setAttribute('position', '0 -0.48 0.01');
+    hint.setAttribute('align', 'center');
+    hint.setAttribute('color', '#888888');
+    hint.setAttribute('width', '1.6');
+    entity.appendChild(hint);
+
+    container.appendChild(entity);
+  });
 }
 
 document.querySelector('a-scene').addEventListener('loaded', function () {
@@ -107,28 +177,20 @@ document.querySelector('a-scene').addEventListener('loaded', function () {
 });
 
 function showScene(num) {
-  for (let i = 1; i <= totalScenes; i++) {
+  const allIds = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+  allIds.forEach(function (i) {
     const el = document.getElementById('scene-' + i);
     if (el) el.setAttribute('visible', i === num ? 'true' : 'false');
-  }
+  });
 
   const gameOverlay = document.getElementById('game-overlay');
-  const jsOverlay   = document.getElementById('js-interaction-overlay');
 
   if (num === 10 || num === 11 || num === 12) {
     gameOverlay.classList.remove('hidden');
-    jsOverlay.classList.add('hidden');
     const type = num === 10 ? 'html' : num === 11 ? 'css' : 'js';
     initGame(type);
   } else {
     gameOverlay.classList.add('hidden');
-  }
-
-  if (num === 7 || num === 8 || num === 9) {
-    jsOverlay.classList.remove('hidden');
-    setupJsInteractionButtons(num);
-  } else {
-    jsOverlay.classList.add('hidden');
   }
 }
 
@@ -153,15 +215,32 @@ function updateUI() {
 
 function nextScene() {
   if (!markerFound) return;
+
+  if (currentScene === 10 && !gamePassedHTML) {
+    showToast('❗ Selesaikan mini game HTML dulu!');
+    return;
+  }
+  if (currentScene === 11 && !gamePassedCSS) {
+    showToast('❗ Selesaikan mini game CSS dulu!');
+    return;
+  }
+  if (currentScene === 12 && !gamePassedJS) {
+    showToast('❗ Selesaikan mini game JS dulu!');
+    return;
+  }
+
   playSound('button1');
 
-  if (currentScene === 3)  { currentScene = 10; updateUI(); return; }
+  if (currentScene === 3)  { currentScene = 13; updateUI(); return; }
+  if (currentScene === 13) { currentScene = 10; updateUI(); return; }
   if (currentScene === 10) { currentScene = 4;  updateUI(); return; }
-  if (currentScene === 6)  { currentScene = 11; updateUI(); return; }
+  if (currentScene === 6)  { currentScene = 14; updateUI(); return; }
+  if (currentScene === 14) { currentScene = 11; updateUI(); return; }
   if (currentScene === 11) { currentScene = 7;  updateUI(); return; }
-  if (currentScene === 9)  { currentScene = 12; updateUI(); return; }
+  if (currentScene === 9)  { currentScene = 15; updateUI(); return; }
+  if (currentScene === 15) { currentScene = 12; updateUI(); return; }
 
-  if (currentScene < totalScenes) {
+  if (currentScene < 12) {
     currentScene++;
     updateUI();
   } else {
@@ -173,11 +252,14 @@ function prevScene() {
   if (!markerFound) return;
   playSound('button2');
 
-  if (currentScene === 10) { currentScene = 3;  updateUI(); return; }
+  if (currentScene === 13) { currentScene = 3;  updateUI(); return; }
+  if (currentScene === 10) { currentScene = 13; updateUI(); return; }
   if (currentScene === 4)  { currentScene = 10; updateUI(); return; }
-  if (currentScene === 11) { currentScene = 6;  updateUI(); return; }
+  if (currentScene === 14) { currentScene = 6;  updateUI(); return; }
+  if (currentScene === 11) { currentScene = 14; updateUI(); return; }
   if (currentScene === 7)  { currentScene = 11; updateUI(); return; }
-  if (currentScene === 12) { currentScene = 9;  updateUI(); return; }
+  if (currentScene === 15) { currentScene = 9;  updateUI(); return; }
+  if (currentScene === 12) { currentScene = 15; updateUI(); return; }
 
   if (currentScene > 1) {
     currentScene--;
@@ -199,83 +281,6 @@ function showToast(message) {
   }, 4000);
 }
 
-function setupJsInteractionButtons(sceneNum) {
-  const infoEl    = document.getElementById('js-interaction-info');
-  const btnsEl    = document.getElementById('js-interaction-buttons');
-  btnsEl.innerHTML = '';
-
-  if (sceneNum === 7) {
-    infoEl.textContent = 'Tap var, let, atau const untuk penjelasan';
-
-    const varBtn = document.createElement('button');
-    varBtn.className = 'js-btn js-btn-var';
-    varBtn.textContent = 'var';
-    varBtn.onclick = function () {
-      playSound('button3');
-      infoEl.textContent = 'var: bisa diubah, scope global / function';
-    };
-
-    const letBtn = document.createElement('button');
-    letBtn.className = 'js-btn js-btn-let';
-    letBtn.textContent = 'let';
-    letBtn.onclick = function () {
-      playSound('button3');
-      infoEl.textContent = 'let: bisa diubah, scope block { }';
-    };
-
-    const constBtn = document.createElement('button');
-    constBtn.className = 'js-btn js-btn-const';
-    constBtn.textContent = 'const';
-    constBtn.onclick = function () {
-      playSound('button3');
-      infoEl.textContent = 'const: TIDAK bisa diubah setelah ditetapkan';
-    };
-
-    btnsEl.appendChild(varBtn);
-    btnsEl.appendChild(letBtn);
-    btnsEl.appendChild(constBtn);
-  }
-
-  if (sceneNum === 8) {
-    infoEl.textContent = 'Tap Input untuk mencoba fungsi kaliDua()';
-
-    const inputBtn = document.createElement('button');
-    inputBtn.className = 'js-btn js-btn-input';
-    inputBtn.textContent = '▶ Tap Input';
-    inputBtn.onclick = function () {
-      playSound('button3');
-      const randomNum = Math.floor(Math.random() * 10) + 1;
-      const result = randomNum * 2;
-      infoEl.textContent = 'kaliDua(' + randomNum + ') = ' + result;
-    };
-
-    btnsEl.appendChild(inputBtn);
-  }
-
-  if (sceneNum === 9) {
-    infoEl.textContent = 'Tap tombol untuk mengubah isi halaman';
-    let toggled = false;
-
-    const domBtn = document.createElement('button');
-    domBtn.className = 'js-btn js-btn-dom';
-    domBtn.textContent = '🖱 Ubah Teks DOM';
-    domBtn.onclick = function () {
-      playSound('button3');
-      toggled = !toggled;
-
-      const domTitle = document.getElementById('dom-title');
-      const domInfo  = document.getElementById('dom-info');
-
-      if (domTitle) domTitle.setAttribute('value', toggled ? 'Teks Berubah!' : 'Halo Dunia');
-      if (domInfo)  domInfo.setAttribute('value', toggled ? 'DOM berhasil dimanipulasi!' : 'Tap tombol untuk mengubah isi halaman');
-
-      infoEl.textContent = toggled ? '✅ DOM berhasil dimanipulasi!' : 'Tap tombol untuk mengubah isi halaman';
-      domBtn.style.background = toggled ? '#e74c3c' : '#3498db';
-    };
-
-    btnsEl.appendChild(domBtn);
-  }
-}
 
 const htmlQuestions = [
   { q: 'Tag untuk JUDUL UTAMA halaman?', opts: ['<h1>', '<p>', '<div>', '<span>'], answer: 0 },
@@ -298,25 +303,23 @@ const jsQuestions = [
   { q: 'Cara memanggil fungsi "sapa"?', opts: ['sapa', 'sapa()', 'call sapa', 'run sapa'], answer: 1 },
 ];
 
-let gameState    = { index: 0, score: 0, answered: false, type: 'html' };
-let currentGameBtns = [];
+let gameState = { index: 0, score: 0, wrongCount: 0, answered: false, type: 'html', locked: false };
 
 function initGame(type) {
-  gameState = { index: 0, score: 0, answered: false, type: type };
+  gameState = { index: 0, score: 0, wrongCount: 0, answered: false, type: type, locked: false };
 
-  const color = type === 'html' ? '#264de4' : type === 'css' ? '#1a56db' : '#b8a600';
-  document.querySelectorAll('.game-btn').forEach(function (btn) {
-    btn.style.background = color;
-    btn.style.color = '#ffffff';
-  });
+  const retryBtn = document.getElementById('game-retry-btn');
+  retryBtn.classList.add('hidden');
 
-  ['A','B','C','D'].forEach(function(opt, i) {
+  ['A','B','C','D'].forEach(function (opt) {
     const btn = document.getElementById('game-btn-' + opt);
     if (btn) {
-      btn.onclick = function () { answerGame(i); };
+      btn.disabled = false;
+      btn.style.opacity = '1';
     }
   });
 
+  document.getElementById('game-wrong-display').textContent = '';
   renderGameQuestion();
 }
 
@@ -324,11 +327,14 @@ function renderGameQuestion() {
   const questions = gameState.type === 'html' ? htmlQuestions :
                     gameState.type === 'css'  ? cssQuestions  : jsQuestions;
   const q = questions[gameState.index];
+
   const defaultColor = gameState.type === 'html' ? '#264de4' :
                        gameState.type === 'css'  ? '#1a56db' : '#b8a600';
 
   document.getElementById('game-score-display').textContent =
     'Skor: ' + gameState.score + ' / ' + questions.length;
+  document.getElementById('game-wrong-display').textContent =
+    gameState.wrongCount > 0 ? '❌ Salah: ' + gameState.wrongCount + ' / 3' : '';
   document.getElementById('game-question-display').textContent = q.q;
   document.getElementById('game-feedback-display').textContent = '';
   document.getElementById('game-result-display').textContent   = '';
@@ -337,11 +343,12 @@ function renderGameQuestion() {
   opts.forEach(function (opt, i) {
     const btn = document.getElementById('game-btn-' + opt);
     if (btn) {
-      btn.textContent    = q.opts[i];
+      btn.textContent      = q.opts[i];
       btn.style.background = defaultColor;
-      btn.style.color    = '#ffffff';
-      btn.disabled       = false;
-      btn.className      = 'game-btn';
+      btn.style.color      = '#ffffff';
+      btn.disabled         = false;
+      btn.style.opacity    = '1';
+      btn.className        = 'game-btn';
     }
   });
 
@@ -349,7 +356,7 @@ function renderGameQuestion() {
 }
 
 function answerGame(optIndex) {
-  if (gameState.answered) return;
+  if (gameState.answered || gameState.locked) return;
 
   const questions = gameState.type === 'html' ? htmlQuestions :
                     gameState.type === 'css'  ? cssQuestions  : jsQuestions;
@@ -370,37 +377,86 @@ function answerGame(optIndex) {
   if (isCorrect) {
     if (chosenBtn) { chosenBtn.style.background = '#27ae60'; chosenBtn.style.color = '#fff'; }
     playSound('button3');
+    gameState.score++;
   } else {
     if (chosenBtn)  { chosenBtn.style.background  = '#c0392b'; chosenBtn.style.color = '#fff'; }
     if (correctBtn) { correctBtn.style.background = '#27ae60'; correctBtn.style.color = '#fff'; }
     playSound('button4');
+    gameState.wrongCount++;
   }
-
-  if (isCorrect) gameState.score++;
 
   document.getElementById('game-feedback-display').textContent =
     isCorrect ? '✅ Benar!' : '❌ Salah! Jawaban: ' + q.opts[q.answer];
   document.getElementById('game-score-display').textContent =
     'Skor: ' + gameState.score + ' / ' + questions.length;
+  document.getElementById('game-wrong-display').textContent =
+    gameState.wrongCount > 0 ? '❌ Salah: ' + gameState.wrongCount + ' / 3' : '';
+
+  if (gameState.wrongCount >= 3) {
+    setTimeout(function () {
+      endGameFailed();
+    }, 1200);
+    return;
+  }
 
   setTimeout(function () {
     gameState.index++;
     if (gameState.index < questions.length) {
       renderGameQuestion();
     } else {
-      const total = questions.length;
-      const pesan =
-        gameState.score === total          ? '🏆 Sempurna! Skor ' + gameState.score + '/' + total :
-        gameState.score >= Math.ceil(total / 2) ? '👍 Bagus! Skor ' + gameState.score + '/' + total :
-                                               '📚 Terus semangat! Skor ' + gameState.score + '/' + total;
-      document.getElementById('game-result-display').textContent   = pesan;
-      document.getElementById('game-question-display').textContent = 'Game selesai! Tekan Lanjut →';
-      document.getElementById('game-feedback-display').textContent = '';
-
-      opts.forEach(function (opt) {
-        const btn = document.getElementById('game-btn-' + opt);
-        if (btn) { btn.disabled = true; btn.style.opacity = '0.4'; }
-      });
+      endGameSuccess();
     }
   }, 1500);
+}
+
+function endGameSuccess() {
+  const questions = gameState.type === 'html' ? htmlQuestions :
+                    gameState.type === 'css'  ? cssQuestions  : jsQuestions;
+  const total  = questions.length;
+  const score  = gameState.score;
+  const wrongs = gameState.wrongCount;
+
+  if (gameState.type === 'html') gamePassedHTML = true;
+  else if (gameState.type === 'css') gamePassedCSS = true;
+  else gamePassedJS = true;
+
+  const bintang = score === total ? '🏆 Sempurna!' :
+                  score >= Math.ceil(total / 2) ? '👍 Bagus!' : '📚 Lumayan!';
+
+  const pesan = bintang + ' Skor: ' + score + '/' + total + ' | Salah: ' + wrongs;
+
+  document.getElementById('game-result-display').textContent = pesan;
+  document.getElementById('game-question-display').textContent = '✅ Game selesai! Tekan Lanjut →';
+  document.getElementById('game-feedback-display').textContent = '';
+
+  ['A','B','C','D'].forEach(function (opt) {
+    const btn = document.getElementById('game-btn-' + opt);
+    if (btn) { btn.disabled = true; btn.style.opacity = '0.4'; }
+  });
+
+  document.getElementById('game-retry-btn').classList.add('hidden');
+}
+
+function endGameFailed() {
+  const questions = gameState.type === 'html' ? htmlQuestions :
+                    gameState.type === 'css'  ? cssQuestions  : jsQuestions;
+  const score  = gameState.score;
+  const total  = questions.length;
+
+  document.getElementById('game-question-display').textContent = '😢 Salah 3 kali! Ulangi game.';
+  document.getElementById('game-result-display').textContent =
+    'Skor sementara: ' + score + '/' + total + ' | Salah: ' + gameState.wrongCount;
+  document.getElementById('game-feedback-display').textContent = '';
+
+  ['A','B','C','D'].forEach(function (opt) {
+    const btn = document.getElementById('game-btn-' + opt);
+    if (btn) { btn.disabled = true; btn.style.opacity = '0.4'; }
+  });
+
+  document.getElementById('game-retry-btn').classList.remove('hidden');
+  gameState.locked = true;
+}
+
+function retryGame() {
+  initGame(gameState.type);
 }
