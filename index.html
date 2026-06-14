@@ -14,7 +14,7 @@
     <div id="overlay">
       <div id="header">
         <span id="app-name">Code-AR</span>
-        <span id="scene-indicator">Scene <span id="current-scene">1</span> / 12</span>
+        <span id="scene-indicator">Scene <span id="current-scene">1</span> / 15</span>
       </div>
 
       <div id="topic-info">
@@ -26,27 +26,20 @@
         <p>Arahkan kamera ke flashcard Code-AR</p>
       </div>
 
-      <!-- GAME OVERLAY: muncul saat scene 10, 11, 12 -->
       <div id="game-overlay" class="hidden">
         <div id="game-box">
           <div id="game-score-display">Skor: 0 / 4</div>
+          <div id="game-wrong-display"></div>
           <div id="game-question-display">Memuat soal...</div>
           <div id="game-options">
-            <button class="game-btn" id="game-btn-A" onclick="answerGameHTML(0)">A</button>
-            <button class="game-btn" id="game-btn-B" onclick="answerGameHTML(1)">B</button>
-            <button class="game-btn" id="game-btn-C" onclick="answerGameHTML(2)">C</button>
-            <button class="game-btn" id="game-btn-D" onclick="answerGameHTML(3)">D</button>
+            <button class="game-btn" id="game-btn-A">A</button>
+            <button class="game-btn" id="game-btn-B">B</button>
+            <button class="game-btn" id="game-btn-C">C</button>
+            <button class="game-btn" id="game-btn-D">D</button>
           </div>
           <div id="game-feedback-display"></div>
           <div id="game-result-display"></div>
-        </div>
-      </div>
-
-      <div id="js-interaction-overlay" class="hidden">
-        <div id="js-interaction-box">
-          <div id="js-interaction-info">Tap tombol untuk berinteraksi</div>
-          <div id="js-interaction-buttons">
-          </div>
+          <button id="game-retry-btn" class="hidden" onclick="retryGame()">🔄 Ulangi Game</button>
         </div>
       </div>
 
@@ -76,6 +69,8 @@
         <a-entity id="container-css"></a-entity>
 
         <a-entity id="container-js"></a-entity>
+
+        <a-entity id="container-robot"></a-entity>
 
       </a-entity>
     </a-scene>
