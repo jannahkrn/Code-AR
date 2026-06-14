@@ -29,21 +29,21 @@ Pengguna tidak perlu menginstal aplikasi apapun. Cukup buka URL di browser, arah
 
 ## 📚 Materi yang Dipelajari
 
-### 🌐 HTML (Scene 1-3 + Robot + Mini Game) — *Jannah*
+### 🌐 HTML (Scene 1-3 + Robot + Mini Game) 
 * **Scene 1:** Struktur Dokumen HTML
 * **Scene 2:** Elemen dan Tag HTML
 * **Scene 3:** Atribut HTML
 * **Scene 13:** 🤖 Robot Playground — transisi sebelum game HTML
 * **Scene 10:** 🎮 Mini Game HTML — kuis pilihan ganda materi HTML
 
-### 🎨 CSS (Scene 4-6 + Robot + Mini Game) — *Luthfi*
+### 🎨 CSS (Scene 4-6 + Robot + Mini Game)
 * **Scene 4:** Selektor dan Properti CSS
 * **Scene 5:** Box Model
 * **Scene 6:** Flexbox Layout
 * **Scene 14:** 🤖 Robot Playground — transisi sebelum game CSS
 * **Scene 11:** 🎮 Mini Game CSS — kuis pilihan ganda materi CSS
 
-### ⚡ JavaScript (Scene 7-9 + Robot + Mini Game) — *Indra*
+### ⚡ JavaScript (Scene 7-9 + Robot + Mini Game) 
 * **Scene 7:** Variabel dan Tipe Data
 * **Scene 8:** Fungsi (*Function*)
 * **Scene 9:** Manipulasi DOM
@@ -169,9 +169,9 @@ Scan Flashcard
 
 Nama    | Topik      | Tanggung Jawab
 --------|------------|---------------------------------------------------------------
-Jannah  | HTML       | Desain flashcard, struktur proyek, scene 1-3, scene robot 13-15, pencarian asset 3D robot, mini game HTML (scene 10), integrasi, sound interaktif, objek 3D animasi
-Luthfi  | CSS        | Scene 4-6 (materi CSS), mini game CSS (scene 11)
-Indra   | JavaScript | Scene 7-9 (materi JavaScript), mini game JS (scene 12)
+Jannah  | HTML       | Desain flashcard, struktur proyek, scene 1-3, scene robot 13-15, pencarian asset 3D robot, mini game HTML (scene 10), mini game CSS (scene 11), mini game JS (scene 12), integrasi, sound interaktif, objek 3D animasi
+Luthfi  | CSS        | Scene 4-6 (materi CSS)
+Indra   | JavaScript | Scene 7-9 (materi JavaScript)
 
 ---
 
